@@ -8,7 +8,7 @@ class TreeNode:
     
     def __init__(self, parent):
         self._parent = parent
-        self._children = {}  # a map from action to TreeNode
+        self._children = {}  
         self._n_visits = 0
         self._Q = 0
         self._u = 0
@@ -27,18 +27,11 @@ class TreeNode:
     def update(self, leaf_value):
  
         self._n_visits += 1
-        # update visit count
         self._Q += 1.0*(leaf_value - self._Q) / self._n_visits
-        # update Q, a running average of values for all visits.
-        # there is just: (v-Q)/(n+1)+Q = (v-Q+(n+1)*Q)/(n+1)=(v+n*Q)/(n+1)
 
     def update_recursive(self, leaf_value):
-  
-        # If it is not root, this node's parent should be updated first.
         if self._parent:
             self._parent.update_recursive(-leaf_value)
-            # every step for revursive update,
-            # we should change the perspective by the way of taking the negative
         self.update(leaf_value)
 
     def get_value(self, c_puct):
@@ -56,31 +49,22 @@ class MCTS:
     def __init__(self, c_puct=5, n_playout=400):
 
         self._root = TreeNode(parent=None)
-        # root node do not have parent ,and sure with prior probability 1
         self._c_puct = c_puct
-        self._n_playout = n_playout # times of tree search
+        self._n_playout = n_playout 
 
     def _playout(self, state):
 
         node = self._root
-        while(1):
-            # select action in tree
+        while(True):
             if node.is_leaf():
-                # break if the node is leaf node
-
                 break
-            # Greedily select next move.
             action, node = node.select(self._c_puct)
             state.do_move(action)
 
-        # Check for end of game
         end, winner = state.game_end()
         if not end:
-            # expand the node
             node.expand(state.availables)
-        # Evaluate the leaf node by random rollout
         leaf_value = self._evaluate_rollout(state)
-        # Update value and visit count of nodes in this traversal.
         node.update_recursive(-leaf_value)
 
     @staticmethod
@@ -99,7 +83,6 @@ class MCTS:
             max_action = max(action_probs, key=itemgetter(1))[0]
             state.do_move(max_action)
         else:
-            # If no break from the loop, issue a warning.
             print("WARNING: rollout reached move limit")
 
         if winner == -1:  # tie
@@ -112,7 +95,6 @@ class MCTS:
         for n in trange(self._n_playout):
             state_copy = copy.deepcopy(state)
             self._playout(state_copy)
-            # use deepcopy and playout on the copy state
 
         return max(self._root._children.items(),
                    key=lambda act_node: act_node[1]._n_visits)[0]
@@ -141,14 +123,11 @@ class MCTSPlayer:
         sensible_moves = board.availables
         if board.last_move != -1:
             self.mcts.update_with_move(last_move=board.last_move)
-            # reuse the tree
-            # retain the tree that can continue to use
-            # so update the tree with opponent's move and do mcts from the current node
 
         if len(sensible_moves) > 0:
             move = self.mcts.get_move(board)
             self.mcts.update_with_move(move)
-            # every time when get a move, update the tree
+
         else:
             print("WARNING: the board is full")
 
