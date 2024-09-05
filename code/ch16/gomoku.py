@@ -249,5 +249,6 @@ if __name__ == '__main__':
 	n = 5
 	start_player = 1
 	game = Game(width=board_size, height=board_size, n_in_row=n)
-	mcts_player = MCTSPlayer(5,20000)
+	# n_playout越大，AI越聪明，不过搜索越慢
+	mcts_player = MCTSPlayer(c_puct=n, n_playout=10000)
 	game.play_AI(mcts_player,start_player)
