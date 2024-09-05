@@ -28,7 +28,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        # 键盘离散移动
+        # 键盘离散移动，常用于单次操作，例如跳跃操作
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 dragon_rect.x -= speed[0]
@@ -39,7 +39,7 @@ while running:
             if event.key == pygame.K_DOWN:
                 dragon_rect.y += speed[1]
 
-    # 键盘连续移动
+    # 键盘连续移动，常用于按住操作，例如方向移动
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
         dragon_rect.x -= speed[0]

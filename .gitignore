@@ -1,3 +1,4 @@
 
 *.pyc
 /code/ch09/.ipynb_checkpoints
+/.vscode

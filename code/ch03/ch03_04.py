@@ -22,7 +22,6 @@ dragon_image = pygame.image.load("dragon_right.png")
 dragon_rect = dragon_image.get_rect()
 dragon_rect.center = (WINDOW_WIDTH//2, WINDOW_HEIGHT//2)
 
-#font = pygame.font.SysFont(None, 32)
 font = pygame.font.Font('WenQuan.ttf', 32)
 text = font.render("飞龙在天", True, GRAY, WHITE)
 text_rect = text.get_rect()
