@@ -63,6 +63,7 @@ class Board:
 		
 		return False
 	
+# 基于蒙特卡洛构建的井字棋AI
 class AI_tic:
 	
 	def __init__(self,n_sim, size):
@@ -140,6 +141,7 @@ class Game:
 				self.board.setMove(userMoveLoc,self.currentPlayer)
 				break
 
+	# 用于人类和AI对战
 	def play(self):
 		self.board.show()
 		while self.board.hasMovesLeft():
@@ -153,6 +155,7 @@ class Game:
 				break
 			self.currentPlayer = self.getNextPlayer(self.currentPlayer)
 
+	# 用于AI之间对战
 	def AIvsAI(self):
 		self.board.show()
 		while self.board.hasMovesLeft():
@@ -176,6 +179,7 @@ class Game:
 			outputList.append(y)
 		return outputList 
 
+	# 用于AI之间对战，并记录下落子的位置
 	def AIvsAI_file(self,file):
 		while self.board.hasMovesLeft():
 			PiecesBefore = self.replacePieces(self.board.pieces,self.currentPlayer)
@@ -187,12 +191,17 @@ class Game:
 			file.write(','+move+'\n')
 			self.currentPlayer = self.getNextPlayer(self.currentPlayer)
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-# 	game = Game(boardSize=3,startPlayer='X')
-# 	#game.play()
-# 	game.AIvsAI()
+	game = Game(boardSize=3,startPlayer='X')
+	# 实现两个AI之间的对战
+	#game.AIvsAI()
+	# 如果需要人工和AI之间的对战，使用如下代码
+	game.play()
+	
 
+
+# 如果需要保存AI之间对战信息，使用如下代码
 # if __name__ == '__main__':
 
 # 	with open(r'tic_record.txt', 'w') as file:
