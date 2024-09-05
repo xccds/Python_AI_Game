@@ -74,7 +74,8 @@ class Agent:
         if len(self.memory)>0:
             if len(self.memory) > batch_size:
                 mini_sample = random.sample(self.memory, batch_size) # list of tuples
-            mini_sample = self.memory
+            else:
+                mini_sample = self.memory
             states, actions, rewards, next_states, dones = zip(*mini_sample)
             states = np.array(states)
             next_states = np.array(next_states)
