@@ -1,3 +1,5 @@
+# 基于强化学习训练的游戏AI
+
 import numpy as np
 from flappy_env import Game
 from flappy_agent import Agent
@@ -24,7 +26,6 @@ def train():
 			agent.trainer.copy_model()
 
 		if done:
-			agent.train_long_memory(batch_size=256)
 			game.reset()
 			agent.n_game += 1
 			if score > record:
@@ -34,7 +35,7 @@ def train():
 			plot_scores.append(score)
 			mean_scores = np.mean(plot_scores[-10:])
 			plot_mean_scores.append(mean_scores)
-			plot(plot_scores, plot_mean_scores)
+			#plot(plot_scores, plot_mean_scores)
 
 if __name__ == '__main__':
 	train()

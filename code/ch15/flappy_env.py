@@ -89,7 +89,7 @@ class Game():
 		self.reward = 0
 		self.observed = dict()
 		self.Clock = pygame.time.Clock()
-		self.font = pygame.font.SysFont('Bauhaus 93', 60)
+		self.font = pygame.font.Font('resources/LuckiestGuy-Regular.ttf', 28)
 		self.images = self.loadImages()
 		self.sounds = self.loadSounds()
 		self.pipe_group = pygame.sprite.Group()

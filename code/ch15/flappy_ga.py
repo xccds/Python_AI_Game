@@ -1,3 +1,5 @@
+# 基于遗传算法训练的游戏AI
+
 import pygame, sys
 from pygame.locals import *
 import random
@@ -123,8 +125,7 @@ class Pipe(pygame.sprite.Sprite):
 		self.is_top = is_top
 		self.image = pygame.image.load("resources/pipe.png")
 		self.rect = self.image.get_rect()
-		#position variable determines if the pipe is coming from the bottom or top
-		#position 1 is from the top, -1 is from the bottom
+
 		if is_top == True:
 			self.image = pygame.transform.flip(self.image, False, True)
 			self.rect.bottomleft = [x, y - int(Pipe.pipe_gap / 2)]
@@ -154,7 +155,7 @@ class Game():
 		self.pipe_counter = 0
 		self.observed = dict()
 		self.Clock = pygame.time.Clock()
-		self.font = pygame.font.SysFont('Bauhaus 93', 60)
+		self.font = pygame.font.Font('resources/LuckiestGuy-Regular.ttf', 28)
 		self.images = self.loadImages()
 		self.sounds = self.loadSounds()
 
